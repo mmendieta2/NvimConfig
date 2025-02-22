@@ -53,7 +53,7 @@ local function setup_jdtls()
         workspace = {
             configuration = true
         },
-        testDocument = {
+        textDocument = {
             completion = {
                 snippetSupport = false
             }
@@ -70,7 +70,7 @@ local function setup_jdtls()
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
         '-Dlog.protocol=true',
         '-Dlog.level=ALL',
-        '-Xmx1g',
+        '-Xmx2g',
         '--add-modules=ALL-SYSTEM',
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
@@ -167,7 +167,7 @@ local function setup_jdtls()
         java_keymaps()
         require('jdtls.dap').setup_dap()
         require('jdtls.dap').setup_dap_main_class_configs()
-        -- require 'jdtls_setup'.add_commands()
+        --require 'jdtls_setup'.add_commands()
         vim.lsp.codelens.refresh()
         vim.api.nvim_create_autocmd("BufWritePost", {
             pattern = { "*.java" },

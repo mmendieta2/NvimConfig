@@ -9,7 +9,7 @@ return {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "jdtls" },
+                ensure_installed = { "lua_ls", "jdtls", "pyright" },
             })
         end
     },
@@ -37,6 +37,12 @@ return {
             lspconfig.lua_ls.setup({
                 capabilities = capabilities,
             })
+            lspconfig.ts_ls.setup{
+                cmd = { "typescript-language-server", "--stdio" },
+                on_attach = function (client, bufnr)
+                end,
+            }
+            lspconfig.pyright.setup{}
 
             vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "Code Hover Documentation" })
             vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "Code Documentation" })
