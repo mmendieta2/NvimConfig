@@ -10,6 +10,8 @@ return {
         config = function()
             require("mason-lspconfig").setup({
                 ensure_installed = { "lua_ls", "jdtls", "pyright" },
+                automatic_installation = true,
+                automatic_enable = false,
             })
         end
     },
@@ -37,11 +39,6 @@ return {
             lspconfig.lua_ls.setup({
                 capabilities = capabilities,
             })
-            lspconfig.ts_ls.setup{
-                cmd = { "typescript-language-server", "--stdio" },
-                on_attach = function (client, bufnr)
-                end,
-            }
             lspconfig.pyright.setup{}
 
             vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "Code Hover Documentation" })
