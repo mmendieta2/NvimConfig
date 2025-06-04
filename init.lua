@@ -31,5 +31,7 @@ local opts = {
 require("config.options")
 require("config.keymaps")
 require("config.autocmds")
+require("config.mvncompile")
+
 -- Sets up lazy, this should always be last
 require("lazy").setup("plugins", opts)

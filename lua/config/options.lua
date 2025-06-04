@@ -32,6 +32,7 @@ vim.opt.undofile = true -- enable persitent undo
 vim.opt.updatetime = 100 --set faster completion
 vim.opt.writebackup = false
 vim.opt.cursorline = true -- highlight current line
+vim.o.swapfile = false
 
 -- Searching Behaviors
 vim.opt.hlsearch = true -- highlight all matches in search
