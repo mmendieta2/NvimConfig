@@ -1,23 +1,30 @@
 local function get_jdtls()
     local mason_registry = require("mason-registry")
-    local jdtls = mason_registry.get_package("jdtls")
-    local jdtls_path = jdtls:get_install_path()
+    -- local jdtls = mason_registry.get_package("jdtls")
+    -- local jdtls_path = jdtls:get_install_path()
+    local jdtls_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls"
     local launcher = vim.fn.glob(jdtls_path .. "/plugins/org.eclipse.equinox.launcher_*.jar")
-    local SYSTEM = "linux"
+    local SYSTEM = "mac"
     local config = jdtls_path .. "/config_" .. SYSTEM
     local lombok = jdtls_path .. "/lombok.jar"
     return launcher, config, lombok
 end
 local function get_bundles()
-    local mason_registry = require("mason-registry")
-    local java_debug = mason_registry.get_package("java-debug-adapter")
-    local java_debug_path = java_debug:get_install_path()
-    local bundles = {
-        vim.fn.glob(java_debug_path .. "/extension/server/com.microsoft.java.debug.plugin-*.jar", 1)
-    }
-    local java_test = mason_registry.get_package("java-test")
-    local java_test_path = java_test:get_install_path()
-    vim.list_extend(bundles, vim.split(vim.fn.glob(java_test_path .. "/extension/server/*.jar", 1), "\n"))
+    local home = os.getenv("HOME")
+
+    local java_debug_path = home .. "/.local/share/nvim/mason/packages/java-debug-adapter"
+    local java_test_path = home .. "/.local/share/nvim/mason/packages/java-test"
+
+    local bundles = vim.split(
+        vim.fn.glob(java_debug_path .. "/extension/server/com.microsoft.java.debug.plugin-*.jar", 1),
+        "\n"
+    )
+
+    vim.list_extend(bundles, vim.split(
+        vim.fn.glob(java_test_path .. "/extension/server/*.jar", 1),
+        "\n"
+    ))
+
     return bundles
 end
 local function get_workspace()
@@ -46,8 +53,10 @@ end
 local function setup_jdtls()
     local jdtls = require "jdtls"
     local launcher, os_config, lombok = get_jdtls()
+
     local workspace_dir = get_workspace()
     local bundles = get_bundles()
+
     local root_dir = jdtls.setup.find_root({ '.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle' });
     local capabilities = {
         workspace = {
@@ -184,6 +193,7 @@ local function setup_jdtls()
         init_options = init_options,
         on_attach = on_attach
     }
+    print("starting jdtls now")
     require('jdtls').start_or_attach(config)
 end
 return {
