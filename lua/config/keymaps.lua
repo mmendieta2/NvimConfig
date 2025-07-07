@@ -22,6 +22,11 @@ vim.keymap.set("n", "<leader>wh", ":split<cr>", {desc = "window split horizontal
 vim.keymap.set("v", "<", "<gv", { desc = "Indent left in visual mode" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent left in visual mode" })
 
-
+-- Run python code in nvim
+vim.keymap.set("n", "<F5>", function()
+  vim.cmd("w")  -- Save file
+  vim.cmd("belowright split | resize 10")  -- Open split below
+  vim.cmd("term python3 " .. vim.fn.expand("%"))  -- Run Python in terminal
+end)
 
 
