@@ -8,6 +8,13 @@ return {
             git = {
                 enable = false,
             },
+            view = {
+                width = 30,
+                adaptive_size = true,
+            },
+            update_focused_file = {
+                enable = false,
+            }
         })
     end
 }
