@@ -32,15 +32,12 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
-            local lspconfig = require("lspconfig")
-
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-            lspconfig.lua_ls.setup({
-                capabilities = capabilities,
-            })
-            lspconfig.pyright.setup{}
+          
 
+            vim.lsp.enable("lua_ls")
+            vim.lsp.enable("pyright")
             vim.keymap.set("n", "<leader>ch", vim.lsp.buf.hover, { desc = "Code Hover Documentation" })
             vim.keymap.set("n", "<leader>cd", vim.lsp.buf.definition, { desc = "Code Documentation" })
             vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code Actions" })
